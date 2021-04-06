@@ -1,0 +1,18 @@
+server:
+  port: 8080
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: kafka-benchmark-consumer
+
+  kafka:
+    consumer:
+      properties:
+        spring.json.trusted.packages: "com.zen.poc.model"
+          ## You can specify a class package, or use * for any packages
+
+
+
+
