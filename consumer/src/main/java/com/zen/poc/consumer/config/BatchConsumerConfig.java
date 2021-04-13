@@ -14,6 +14,7 @@ import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
 import org.springframework.kafka.listener.ContainerProperties.AckMode;
+import org.springframework.kafka.support.LogIfLevelEnabled.Level;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 
 @Configuration
@@ -45,7 +46,8 @@ public class BatchConsumerConfig {
         factory.setConsumerFactory(batchConsumerFactory());
         factory.setConcurrency(10); // max number of concurrent KafkaMessageListenerContainer running
         factory.getContainerProperties().setPollTimeout(3000);
-        factory.getContainerProperties().setAckMode(AckMode.MANUAL);
+        factory.getContainerProperties().setAckMode(AckMode.MANUAL_IMMEDIATE);
+        factory.getContainerProperties().setCommitLogLevel(Level.INFO);
         factory.setBatchListener(true); // needed for batch listener
         return factory;
     }

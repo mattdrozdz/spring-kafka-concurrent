@@ -14,6 +14,7 @@ import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
 import org.springframework.kafka.listener.ContainerProperties.AckMode;
+import org.springframework.kafka.support.LogIfLevelEnabled.Level;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 
 @Configuration
@@ -44,7 +45,8 @@ public class ConcurrentConsumerConfig {
         factory.setConsumerFactory(consumerFactory());
         factory.setConcurrency(100); // max number of concurrent KafkaMessageListenerContainer running
         factory.getContainerProperties().setPollTimeout(3000);
-        factory.getContainerProperties().setAckMode(AckMode.MANUAL);
+        factory.getContainerProperties().setAckMode(AckMode.RECORD);
+        factory.getContainerProperties().setCommitLogLevel(Level.INFO);
         return factory;
     }
 

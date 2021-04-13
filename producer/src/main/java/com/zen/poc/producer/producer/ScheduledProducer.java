@@ -5,18 +5,13 @@ import static com.zen.poc.producer.ProducerApplication.TOPIC_NAME;
 import com.zen.poc.model.Currency;
 import com.zen.poc.model.Money;
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
-import java.util.function.Supplier;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 

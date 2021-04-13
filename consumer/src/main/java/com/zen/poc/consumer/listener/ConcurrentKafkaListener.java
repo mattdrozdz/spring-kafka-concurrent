@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Component;
 
 @Slf4j
@@ -18,13 +17,11 @@ public class ConcurrentKafkaListener {
 
     @KafkaListener(topics = TOPIC_NAME, groupId = "concurrent-consumer",
         containerFactory = "concurrentKafkaListenerContainerFactory")
-    public void handle(ConsumerRecord<String, Money> event, Acknowledgment ack, Consumer<String, Money> consumer) {
+    public void handle(ConsumerRecord<String, Money> event, Consumer<String, Money> consumer) {
         log.info("Handling kafka event (thread: {}) value: {} from partition: {}", Thread.currentThread().getId(),
             event.value(), event.partition());
         log.info("Consumer subscription: {}, assignment: {}", consumer.subscription(), consumer.assignment());
         processRecord();
-        ack.acknowledge();
-
     }
 
     private void processRecord() {
